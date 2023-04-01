@@ -22,7 +22,7 @@
 - CSS/SCSS
 
 
-[Prevue Link](https://vitaliidox.github.io/react_people-table-basics/) <br/>
+[Prevue Link](https://vitaliidox.github.io/todo_app/) <br/>
 [Layout Reference](http://todomvc.com/examples/vanillajs/)
 
 ### Instructions:
