@@ -1,27 +1,52 @@
-import React from 'react';
-import './App.scss';
+import React, { useState } from 'react';
+import { ErrorNotification } from './components/ErrorNotification';
+import { Footer } from './components/Footer';
+import { Header } from './components/Header';
+import { TodoApp } from './components/TodoApp';
 
-interface Props {
-  onClick: () => void;
-}
-
-export const Provider: React.FC<Props> = React.memo(
-  ({ onClick, children }) => (
-    <button
-      type="button"
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  ),
-);
+import { Error } from './types/Error';
+import { Status } from './types/Status';
+import { Todo } from './types/Todo';
 
 export const App: React.FC = () => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [isError, setIsError] = useState<Error | null>(null);
+  const [filter, setFilter] = useState<Status>(Status.All);
+
   return (
-    <div className="starter">
-      <Provider onClick={() => ({})}>
-        <TodoList />
-      </Provider>
-    </div>
+    <>
+      <div className="todoapp">
+        <Header
+          todos={todos}
+          setTodos={setTodos}
+          setIsError={setIsError}
+        />
+        {todos && (
+          <TodoApp
+            todos={todos}
+            setTodos={setTodos}
+            setIsError={setIsError}
+            filter={filter}
+            setFilter={setFilter}
+          />
+        )}
+        {todos.length > 0 && (
+          <Footer
+            todos={todos}
+            setTodos={setTodos}
+            setIsError={setIsError}
+            filter={filter}
+            setFilter={setFilter}
+          />
+        )}
+      </div>
+
+      {isError && (
+        <ErrorNotification
+          isError={isError}
+          setIsError={setIsError}
+        />
+      )}
+    </>
   );
 };
